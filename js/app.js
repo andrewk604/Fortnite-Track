@@ -194,7 +194,7 @@ const clearPlayer = () => {
 }
 
 const searchStatsHide = () => {
-    if (gamertagInput.value !== '') {
+    if (gamertagInput.value !== '' && platform.value !== 'Choose Platform') {
     document.querySelector('.stats-search').style.top = '-15'+'%';
     } else {
         alert('Enter your nickname and choose platform');
