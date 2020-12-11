@@ -6,20 +6,38 @@ var result = document.querySelector('.result');
 const fetchPlayers = async (gamertag, platform) => {
     const api_call = await fetch(`https://cors-anywhere.herokuapp.com/https://api.fortnitetracker.com/v1/profile/${platform}/${gamertag}`, {
         headers: {
-           'TRN-Api-Key': '38773e29-7af5-4edb-bcd3-a0f9e1f674ec'
-           
+            'TRN-Api-Key': '9ad03ea0-c12a-41d5-9c57-d8ee7e62ecfa'
+
         }
-        
+
     });
 
     const data = await api_call.json();
     console.log(data);
-    return { data }
+    return {
+        data
+    }
 };
 
 const showData = () => {
     fetchPlayers(gamertagInput.value, platformInput.value).then((res) => {
-        const markup = `
+            if (res.data.error == "Player Not Found") {
+                var markup = `
+            <!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            <link rel="stylesheet" href="./css/stats.css">
+            <link rel="stylesheet" href="burbank-big-condensed-black.otf">
+        </head>
+                <div class="not-found">Error 404. We could not find player with that nickname. Make sure, you writed nickname correct</div>
+                </html>
+            `
+            } else {
+                var markup = `
         <!DOCTYPE html>
         <html lang="en">
         
@@ -178,10 +196,13 @@ const showData = () => {
         </body>
         
         </html>
-        `;
-        result.insertAdjacentHTML('beforeend', markup);
-    })
-        .catch(err => console.log(err));
+        `
+            };
+            result.insertAdjacentHTML('beforeend', markup);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 const clearField = () => {
@@ -194,8 +215,8 @@ const clearPlayer = () => {
 }
 
 const searchStatsHide = () => {
-    if (gamertagInput.value !== '') {
-    document.querySelector('.stats-search').style.top = '-15'+'%';
+    if (gamertagInput.value !== '' && platform.value !== 'Choose Platform') {
+        document.querySelector('.stats-search').style.top = '-15' + '%';
     } else {
         alert('Enter your nickname and choose platform');
     }

@@ -128,9 +128,20 @@ li {
     background: #d662f3;
 }
 
+
+/* Errors */
+
+.not-found {
+    font-family: 'Burbank';
+    font-size: 64px;
+    margin-top: 30%;
+    color: white;
+}
+
 /*  Media  */
 
 @font-face {
     font-family: 'Burbank';
     src: url('../fonts/burbank-big-condensed-black.otf');
   }
+
